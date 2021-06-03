@@ -1,0 +1,30 @@
+{
+  "name": "configwise/configurator",
+  "description": "Magento 2 ConfigWise extension",
+  "type": "magento2-module",
+  "version": "1.0.3",
+  "require": {
+      "endroid/qr-code": "^3.7"
+  },
+  "license": "proprietary",
+  "keywords": [
+    "magento 2",
+    "configwise"
+  ],
+  "authors": [
+    {
+      "name": "ConfigWise",
+      "email": "support@configwise.io",
+      "homepage": "https://www.configwise.io/",
+      "role": "Technical Support"
+    }
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
+    ],
+    "psr-4": {
+      "ConfigWise\\Configurator\\": ""
+    }
+  }
+}

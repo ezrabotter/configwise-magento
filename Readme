@@ -1,0 +1,17 @@
+Add the code to app/code/. Make sure to have Configwise/Configurator subfolders in app/code folder.
+
+mkdir app/code/ConfigWise/Configurator -p
+
+Enable the extension
+php bin/magento module:enable ConfigWise_Configurator
+
+Upgrade
+php bin/magento setup:upgrade;
+
+Compile
+php bin/magento setup:di:compile;
+
+Generate static content
+php bin/magento setup:static-content:deploy -f;
+
+bin/magento setup:upgrade

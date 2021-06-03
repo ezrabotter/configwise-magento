@@ -1,0 +1,105 @@
+<?php
+$_product       = $block->getProduct();
+$_productNumber = $_product->getSku();
+
+$_TszviewForThisProductEnabled  = $_product->getTszviewEnable();
+$_TsSource                      = $_product->getTsvSource();
+$_TsvUrlOverride                = $_product->getTsvUrlOverride();
+
+$_cwEnabled = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/general/enable');
+
+$_360Enabled = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/360widget/enable');
+
+if($_TszviewForThisProductEnabled && $_TsvUrlOverride){
+  ?>
+  <iframe id="cwtsv" name="ConfigWise360Viewer" src="<?php echo $_TsvUrlOverride ?>" allowfullscreen scrolling="no" frameborder="0"></iframe>
+  <style type="text/css">
+      #cwtsv{
+        width:600px;
+        height:600px;
+      }
+      @media screen and (max-width: 630px) {
+        #cwtsv{
+          width:100%;
+        }
+      }
+      @media screen and (max-width: 500px) {
+        #cwtsv{
+          width:100%;
+          height:500px;
+        }
+      }
+      @media screen and (max-width: 400px) {
+        #cwtsv{
+          width:100%;
+          height:400px;
+        }
+      }
+  </style>
+  <?php
+}
+/*
+if($_cwEnabled && $_360Enabled && $_TszviewForThisProductEnabled){
+    if($_TsSource == 2){ // Manual
+      if($_TsvUrlOverride){
+          ?>
+          <iframe id="cwtsv" name="ConfigWise360Viewer" src="<?php echo $_TsvUrlOverride ?>" allowfullscreen scrolling="no" frameborder="0"></iframe>
+          <style type="text/css">
+              #cwtsv{
+                width:600px;
+                height:600px;
+              }
+              @media screen and (max-width: 630px) {
+                #cwtsv{
+                  width:100%;
+                }
+              }
+              @media screen and (max-width: 500px) {
+                #cwtsv{
+                  width:100%;
+                  height:500px;
+                }
+              }
+              @media screen and (max-width: 400px) {
+                #cwtsv{
+                  width:100%;
+                  height:400px;
+                }
+              }
+          </style>
+          <?php
+      }
+    }else{ // Catalog by default
+      $frame = $block->getFrame();
+      if($frame){
+          ?>
+          <iframe id="cwtsv" name="ConfigWise360Viewer" src="<?php echo $frame . '&preload=false';?>" allowfullscreen scrolling="no" frameborder="0"></iframe>
+          <style type="text/css">
+              #cwtsv{
+                width:600px;
+                height:600px;
+              }
+              @media screen and (max-width: 630px) {
+                #cwtsv{
+                  width:100%;
+                }
+              }
+              @media screen and (max-width: 500px) {
+                #cwtsv{
+                  width:100%;
+                  height:500px;
+                }
+              }
+              @media screen and (max-width: 400px) {
+                #cwtsv{
+                  width:100%;
+                  height:400px;
+                }
+              }
+          </style>
+          <?php
+      }
+    }
+}
+*/
+?>

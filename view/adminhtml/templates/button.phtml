@@ -1,0 +1,60 @@
+<?php
+$url = $block->createUrl('configwise/components/index', ['product_id' => $block->getProductId()]);
+?>
+<script type="text/javascript">
+require(['jquery', 'jquery/ui'], function($){
+    $(document).ready( function() {
+      /*
+        var cwInterval = setInterval(function(){
+            if($('.fieldset-wrapper[data-index="configwise"] fieldset').length){
+
+                $('.fieldset-wrapper[data-index="configwise"] fieldset').append(html);
+                //$('#cw_button .admin__field-control').append($('#cw-component-details'));
+                clearInterval(cwInterval);
+            }
+        }, 1000);
+        */
+
+
+
+        var syncAndTsvInterval = setInterval(function(){
+            if($('.admin__field[data-index="css_override_button"]').length){
+                var html = '<div class="admin__field" id="cw_button"><div class="admin__field-label"><label><span>Sync</span></label></div><div class="admin__field-control"><button id="cw-component-details" title="Sync" type="button" class="action- scalable action-secondary" onclick="confirmSetLocation(\'Are you sure you want to sync ?\', \'<?php echo $url; ?>\')" data-ui-id="cw-component-details-button"><span>Sync</span></button></div></div>';
+                html +='<div style="border-top:1px dashed black;margin-left: calc(15% - 100px);padding-top: 15px;padding-bottom: 15px;margin-top: 60px;"><span style="font-size: 16px;font-weight: bold;">360 View</span></div>';
+
+                $('.admin__field[data-index="ios_file"]').after(html);
+                clearInterval(syncAndTsvInterval);
+            }
+        }, 1000);
+
+        var arLinksInterval = setInterval(function(){
+            if($('.admin__field[data-index="companyref_enable"]').length){
+                var html = '<div style="border-top:1px dashed black;margin-left: calc(15% - 100px);padding-top: 15px;padding-bottom: 15px;margin-top: 60px;"><span style="font-size: 16px;font-weight: bold;">AR Links</span></div>';
+                $('.admin__field[data-index="companyref_enable"]').after(html);
+                clearInterval(arLinksInterval);
+            }
+        }, 1000);
+
+        /*
+        var cssOverrideButtonInterval = setInterval(function(){
+            if($('.admin__field[data-index="css_override_button"]').length){
+                var html = '<div style="border-top:1px dashed black;margin-left: calc(15% - 100px);padding-top: 15px;padding-bottom: 15px;margin-top: 60px;"><span style="font-size: 16px;font-weight: bold;">AR Assets</span></div>';
+                $('.admin__field[data-index="css_override_button"]').after(html);
+                clearInterval(cssOverrideButtonInterval);
+            }
+        }, 1000);
+        */
+        var cssOverrideButtonInterval = setInterval(function(){
+            if($('.admin__field[data-index="android_file"]').length && $('.admin__field[data-index="ios_file"]').length && $('#cw_button').length){
+                $('.admin__field[data-index="android_file"]').hide();
+                $('.admin__field[data-index="ios_file"]').hide();
+                $('#cw_button').hide();
+                clearInterval(cssOverrideButtonInterval);
+            }
+        }, 1000);
+
+
+
+    });
+});
+</script>

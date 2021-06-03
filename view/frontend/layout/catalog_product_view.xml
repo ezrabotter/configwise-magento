@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<page xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../../../../../../../lib/internal/Magento/Framework/View/Layout/etc/page_configuration.xsd" layout="1column">
+    <body>
+        <referenceContainer name="product.info.main">
+            <block class="ConfigWise\Configurator\Block\Tsview" name="product.ar.button" template="ConfigWise_Configurator::ar_qr.phtml" before="product.info" />
+        </referenceContainer>
+        <referenceBlock name="product.info.details">
+          <block class="ConfigWise\Configurator\Block\Tsview" name="tszview.tab" as="tszview" template="ConfigWise_Configurator::tsz_view.phtml" group="detailed_info" >
+             <arguments>
+                <argument translate="true" name="title" xsi:type="string">360 View</argument>
+             </arguments>
+          </block>
+        </referenceBlock>
+    </body>
+</page>
