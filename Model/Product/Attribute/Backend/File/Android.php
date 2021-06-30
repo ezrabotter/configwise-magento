@@ -32,8 +32,8 @@ class Android extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBacken
     /**
      * Construct
      *
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \Magento\Framework\Filesystem $filesystem
+     * @param \Psr\Log\LoggerInterface                         $logger
+     * @param \Magento\Framework\Filesystem                    $filesystem
      * @param \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory
      */
     public function __construct(
@@ -63,22 +63,26 @@ class Android extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBacken
             $fileName = $object->getData($this->getAttribute()->getName());
             $object->setData($this->getAttribute()->getName(), '');
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
-            if ($this->_file->isExists($path.$fileName))  {
+            if ($this->_file->isExists($path.$fileName)) {
                 $this->_file->deleteFile($path.$fileName);
             }
         }
 
         try {
-          $androidFIle = $object->getData($this->getAttribute()->getName());
-          if($androidFIle){
-            /** @var $uploader \Magento\MediaStorage\Model\File\Uploader */
-            $uploader = $this->_fileUploaderFactory->create(['fileId' => 'product['.$this->getAttribute()->getName().']']);
-            $uploader->setAllowedExtensions(['glb','gltf']);
-            $uploader->setAllowRenameFiles(true);
-            $result = $uploader->save($path);
-            $object->setData($this->getAttribute()->getName(), $result['file']);
-            $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
-          }
+            $androidFIle = $object->getData($this->getAttribute()->getName());
+            if ($androidFIle) {
+                /**
+*
+                 *
+   * @var $uploader \Magento\MediaStorage\Model\File\Uploader
+*/
+                $uploader = $this->_fileUploaderFactory->create(['fileId' => 'product['.$this->getAttribute()->getName().']']);
+                $uploader->setAllowedExtensions(['glb','gltf']);
+                $uploader->setAllowRenameFiles(true);
+                $result = $uploader->save($path);
+                $object->setData($this->getAttribute()->getName(), $result['file']);
+                $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
+            }
         } catch (\Exception $e) {
             $this->_logger->debug($e);
         }

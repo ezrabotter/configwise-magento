@@ -10,8 +10,8 @@ $_cwEnabled = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('c
 
 $_360Enabled = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/360widget/enable');
 
-if($_TszviewForThisProductEnabled && $_TsvUrlOverride){
-  ?>
+if ($_TszviewForThisProductEnabled && $_TsvUrlOverride) {
+    ?>
   <iframe id="cwtsv" name="ConfigWise360Viewer" src="<?php echo $_TsvUrlOverride ?>" allowfullscreen scrolling="no" frameborder="0"></iframe>
   <style type="text/css">
       #cwtsv{
@@ -36,7 +36,7 @@ if($_TszviewForThisProductEnabled && $_TsvUrlOverride){
         }
       }
   </style>
-  <?php
+    <?php
 }
 /*
 if($_cwEnabled && $_360Enabled && $_TszviewForThisProductEnabled){

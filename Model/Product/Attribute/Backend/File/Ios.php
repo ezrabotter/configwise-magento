@@ -32,8 +32,8 @@ class Ios extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend
     /**
      * Construct
      *
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \Magento\Framework\Filesystem $filesystem
+     * @param \Psr\Log\LoggerInterface                         $logger
+     * @param \Magento\Framework\Filesystem                    $filesystem
      * @param \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory
      */
     public function __construct(
@@ -63,24 +63,28 @@ class Ios extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend
             $fileName = $object->getData($this->getAttribute()->getName());
             $object->setData($this->getAttribute()->getName(), '');
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
-            if ($this->_file->isExists($path.$fileName))  {
+            if ($this->_file->isExists($path.$fileName)) {
                 $this->_file->deleteFile($path.$fileName);
             }
         }
 
         try {
-          $iosFIle = $object->getData($this->getAttribute()->getName());
-          if($iosFIle){
-            /** @var $uploader \Magento\MediaStorage\Model\File\Uploader */
-            $uploader = $this->_fileUploaderFactory->create(['fileId' => 'product['.$this->getAttribute()->getName().']']);
-            $uploader->setAllowedExtensions(['scn', 'usd', 'usdz']);
-            $uploader->setAllowRenameFiles(true);
-            $result = $uploader->save($path);
-            $object->setData($this->getAttribute()->getName(), $result['file']);
-            $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
-          } else {
-            $this->_logger->debug('---------No iOS File ---------');
-          }
+            $iosFIle = $object->getData($this->getAttribute()->getName());
+            if ($iosFIle) {
+                /**
+*
+                 *
+   * @var $uploader \Magento\MediaStorage\Model\File\Uploader
+*/
+                $uploader = $this->_fileUploaderFactory->create(['fileId' => 'product['.$this->getAttribute()->getName().']']);
+                $uploader->setAllowedExtensions(['scn', 'usd', 'usdz']);
+                $uploader->setAllowRenameFiles(true);
+                $result = $uploader->save($path);
+                $object->setData($this->getAttribute()->getName(), $result['file']);
+                $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
+            } else {
+                $this->_logger->debug('---------No iOS File ---------');
+            }
         } catch (\Exception $e) {
             $this->_logger->debug($e);
         }

@@ -27,13 +27,14 @@ class InstallData implements InstallDataInterface
         $this->_resourceProduct = $resourceProduct;
     }
 
-    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context) {
+    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    {
         $eavSetup = $this->_eavSetupFactory->create(["setup"=>$setup]);
 
         $eavSetup->addAttribute(
-           \Magento\Catalog\Model\Product::ENTITY,
-           'app_thumbnail',
-           [
+            \Magento\Catalog\Model\Product::ENTITY,
+            'app_thumbnail',
+            [
                'type' => 'varchar',
                'label' => 'App Thumbnail',
                'input' => 'media_image',
@@ -42,13 +43,13 @@ class InstallData implements InstallDataInterface
                'sort_order' => 10,
                'global' => ScopedAttributeInterface::SCOPE_STORE,
                'used_in_product_listing' => true
-           ]
-         );
+            ]
+        );
 
-       $eavSetup->addAttribute(
-           \Magento\Catalog\Model\Product::ENTITY,
-           'configwise_enable',
-           [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'configwise_enable',
+            [
                'type' => 'int',
                'sort_order' => 10,
                'backend' => '',
@@ -69,12 +70,13 @@ class InstallData implements InstallDataInterface
                'used_in_product_listing' => true,
                'unique' => false,
                'apply_to' => ''
-           ]
-       );
+            ]
+        );
 
-       $eavSetup->addAttribute(
-           \Magento\Catalog\Model\Product::ENTITY,
-           'arbutton_enable', [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'arbutton_enable',
+            [
                'type' => 'int',
                'sort_order' => 20,
                'backend' => '',
@@ -95,12 +97,13 @@ class InstallData implements InstallDataInterface
                'used_in_product_listing' => true,
                'unique' => false,
                'apply_to' => ''
-           ]
-       );
+            ]
+        );
 
-       $eavSetup->addAttribute(
-           \Magento\Catalog\Model\Product::ENTITY,
-           'qr_enable', [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'qr_enable',
+            [
                'type' => 'int',
                'sort_order' => 30,
                'backend' => '',
@@ -121,12 +124,13 @@ class InstallData implements InstallDataInterface
                'used_in_product_listing' => true,
                'unique' => false,
                'apply_to' => ''
-           ]
-       );
+            ]
+        );
 
-       $eavSetup->addAttribute(
-           \Magento\Catalog\Model\Product::ENTITY,
-           'tszview_enable', [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'tszview_enable',
+            [
                'type' => 'int',
                'sort_order' => 40,
                'backend' => '',
@@ -147,13 +151,14 @@ class InstallData implements InstallDataInterface
                'used_in_product_listing' => true,
                'unique' => false,
                'apply_to' => ''
-           ]
-       );
+            ]
+        );
 
 
-       $eavSetup->addAttribute(
-           \Magento\Catalog\Model\Product::ENTITY,
-           'companyref_enable', [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'companyref_enable',
+            [
                'type' => 'int',
                'sort_order' => 50,
                'backend' => '',
@@ -174,13 +179,13 @@ class InstallData implements InstallDataInterface
                'used_in_product_listing' => true,
                'unique' => false,
                'apply_to' => ''
-           ]
-       );
+            ]
+        );
 
-       $eavSetup->addAttribute(
-          \Magento\Catalog\Model\Product::ENTITY,
-          'ar_deeplink_url',
-          [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'ar_deeplink_url',
+            [
               'type' => 'int',
               'sort_order' => 60,
               'backend' => '',
@@ -201,93 +206,95 @@ class InstallData implements InstallDataInterface
               'used_in_product_listing' => true,
               'unique' => false,
               'apply_to' => ''
-          ]
-      );
+            ]
+        );
 
-      $eavSetup->addAttribute(
-          \Magento\Catalog\Model\Product::ENTITY,
-          'arbaseurl_override', [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'arbaseurl_override',
+            [
               'type' => 'text',
               'sort_order' => 70,
-      				'backend' => '',
-      				'frontend' => '',
-      				'label' => 'Override AR Base URL',
-      				'input' => 'text',
-      				'class' => '',
-      				'source' => '',
-      				'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-      				'visible' => true,
-      				'required' => false,
-      				'user_defined' => false,
-      				'default' => '',
-      				'searchable' => false,
-      				'filterable' => false,
-      				'comparable' => false,
-      				'visible_on_front' => false,
-      				'used_in_product_listing' => true,
-      				'unique' => false,
-      				'apply_to' => ''
-          ]
-      );
+                      'backend' => '',
+                      'frontend' => '',
+                      'label' => 'Override AR Base URL',
+                      'input' => 'text',
+                      'class' => '',
+                      'source' => '',
+                      'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                      'visible' => true,
+                      'required' => false,
+                      'user_defined' => false,
+                      'default' => '',
+                      'searchable' => false,
+                      'filterable' => false,
+                      'comparable' => false,
+                      'visible_on_front' => false,
+                      'used_in_product_listing' => true,
+                      'unique' => false,
+                      'apply_to' => ''
+            ]
+        );
 
 
-      $eavSetup->addAttribute(
-          \Magento\Catalog\Model\Product::ENTITY,
-          'journeybaseurl_override', [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'journeybaseurl_override',
+            [
               'type' => 'text',
               'sort_order' => 80,
-      				'backend' => '',
-      				'frontend' => '',
-      				'label' => 'Override Journey Base URL',
-      				'input' => 'text',
-      				'class' => '',
-      				'source' => '',
-      				'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-      				'visible' => true,
-      				'required' => false,
-      				'user_defined' => false,
-      				'default' => '',
-      				'searchable' => false,
-      				'filterable' => false,
-      				'comparable' => false,
-      				'visible_on_front' => false,
-      				'used_in_product_listing' => true,
-      				'unique' => false,
-      				'apply_to' => ''
-          ]
-      );
+                      'backend' => '',
+                      'frontend' => '',
+                      'label' => 'Override Journey Base URL',
+                      'input' => 'text',
+                      'class' => '',
+                      'source' => '',
+                      'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                      'visible' => true,
+                      'required' => false,
+                      'user_defined' => false,
+                      'default' => '',
+                      'searchable' => false,
+                      'filterable' => false,
+                      'comparable' => false,
+                      'visible_on_front' => false,
+                      'used_in_product_listing' => true,
+                      'unique' => false,
+                      'apply_to' => ''
+            ]
+        );
 
-      $eavSetup->addAttribute(
-    			\Magento\Catalog\Model\Product::ENTITY,
-    			'manual_url',
-    			[
-      				'type' => 'text',
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'manual_url',
+            [
+                      'type' => 'text',
               'sort_order' => 90,
-      				'backend' => '',
-      				'frontend' => '',
-      				'label' => 'Manual URL',
-      				'input' => 'text',
-      				'class' => '',
-      				'source' => '',
-      				'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
-      				'visible' => true,
-      				'required' => false,
-      				'user_defined' => false,
-      				'default' => '',
-      				'searchable' => false,
-      				'filterable' => false,
-      				'comparable' => false,
-      				'visible_on_front' => false,
-      				'used_in_product_listing' => true,
-      				'unique' => false,
-      				'apply_to' => ''
-    			]
-		);
+                      'backend' => '',
+                      'frontend' => '',
+                      'label' => 'Manual URL',
+                      'input' => 'text',
+                      'class' => '',
+                      'source' => '',
+                      'global' => \Magento\Eav\Model\Entity\Attribute\ScopedAttributeInterface::SCOPE_GLOBAL,
+                      'visible' => true,
+                      'required' => false,
+                      'user_defined' => false,
+                      'default' => '',
+                      'searchable' => false,
+                      'filterable' => false,
+                      'comparable' => false,
+                      'visible_on_front' => false,
+                      'used_in_product_listing' => true,
+                      'unique' => false,
+                      'apply_to' => ''
+            ]
+        );
 
-    $eavSetup->addAttribute(
-        \Magento\Catalog\Model\Product::ENTITY,
-        'caption_qr_code',
-        [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'caption_qr_code',
+            [
             'type' => 'text',
             'sort_order' => 100,
             'backend' => '',
@@ -308,7 +315,7 @@ class InstallData implements InstallDataInterface
             'used_in_product_listing' => true,
             'unique' => false,
             'apply_to' => ''
-          ]
+            ]
         );
 
 
@@ -337,7 +344,7 @@ class InstallData implements InstallDataInterface
                 'unique' => false,
                 'apply_to' => ''
               ]
-            );
+        );
 
         $eavSetup->addAttribute(
             \Magento\Catalog\Model\Product::ENTITY,
@@ -364,7 +371,7 @@ class InstallData implements InstallDataInterface
                 'unique' => false,
                 'apply_to' => ''
               ]
-            );
+        );
 
 
 
@@ -423,9 +430,9 @@ class InstallData implements InstallDataInterface
         );
 
         $eavSetup->addAttribute(
-           \Magento\Catalog\Model\Product::ENTITY,
-           'tsv_source',
-           [
+            \Magento\Catalog\Model\Product::ENTITY,
+            'tsv_source',
+            [
                'type' => 'int',
                'sort_order' => 150,
                'backend' => '',
@@ -446,12 +453,13 @@ class InstallData implements InstallDataInterface
                'used_in_product_listing' => true,
                'unique' => false,
                'apply_to' => ''
-           ]
-       );
+            ]
+        );
 
-       $eavSetup->addAttribute(
-           \Magento\Catalog\Model\Product::ENTITY,
-           'tsv_url_override', [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'tsv_url_override',
+            [
                'type' => 'text',
                'sort_order' => 110,
                'backend' => '',
@@ -472,13 +480,13 @@ class InstallData implements InstallDataInterface
                'used_in_product_listing' => true,
                'unique' => false,
                'apply_to' => ''
-           ]
-       );
+            ]
+        );
 
-       $eavSetup->addAttribute(
-           \Magento\Catalog\Model\Product::ENTITY,
-           'caption_tsv',
-           [
+        $eavSetup->addAttribute(
+            \Magento\Catalog\Model\Product::ENTITY,
+            'caption_tsv',
+            [
                'type' => 'text',
                'sort_order' => 170,
                'backend' => '',
@@ -500,13 +508,13 @@ class InstallData implements InstallDataInterface
                'unique' => false,
                'apply_to' => ''
              ]
-           );
+        );
 
         $groupName = 'ConfigWise';
         $groupImagesName ='Images';
         $entityTypeId = $eavSetup->getEntityTypeId('catalog_product');
         $attributeSetIds = $eavSetup->getAllAttributeSetIds($entityTypeId);
-        foreach($attributeSetIds as $attributeSetId) {
+        foreach ($attributeSetIds as $attributeSetId) {
             $eavSetup->addAttributeGroup($entityTypeId, $attributeSetId, $groupName, 19);
 
             $attributeGroupId = $eavSetup->getAttributeGroupId($entityTypeId, $attributeSetId, $groupName);

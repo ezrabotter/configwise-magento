@@ -57,18 +57,20 @@ class Index extends \Magento\Backend\App\AbstractAction
                 if (array_key_exists('error', $result)) {
                     $this->_logger->debug($result['error']);
                     $this->_messageManager->addError($result['error']);
-                } else if($frame['original'] && $frame['small'] && $frame['medium'] && $frame['large']){
+                } elseif ($frame['original'] && $frame['small'] && $frame['medium'] && $frame['large']) {
                     // Store frame in local database
 
                     $model = $this->_cwframeFactory->create();
 
-                    $model->addData([
-                      "product_number" => $_sku,
-                      "original" => $frame['original'],
-                      "small" => $frame['small'],
-                      "medium" => $frame['medium'],
-                      "large" => $frame['large']
-                    ]);
+                    $model->addData(
+                        [
+                        "product_number" => $_sku,
+                        "original" => $frame['original'],
+                        "small" => $frame['small'],
+                        "medium" => $frame['medium'],
+                        "large" => $frame['large']
+                        ]
+                    );
                     $model->save();
                     $this->_messageManager->addSuccess(_('Product synced successfully!'));
                 }
@@ -93,15 +95,15 @@ class Index extends \Magento\Backend\App\AbstractAction
 
                 $_isConfigWiseEnabledForThisProduct = $_product->getConfigwiseEnable();
 
-                if($_isConfigWiseEnabledForThisProduct && $configWiseEnabled){
+                if ($_isConfigWiseEnabledForThisProduct && $configWiseEnabled) {
 
                     $collection = $this->_cwproductFactory->create()->getCollection();
                     $collection->addFieldToFilter('product_number', $_sku);
 
-                    if($collection->getSize()) {
+                    if ($collection->getSize()) {
                         $cwProduct = $collection->getFirstItem();
 
-                        if($_name == $cwProduct['app_name'] && $_url == $cwProduct['product_url']){
+                        if ($_name == $cwProduct['app_name'] && $_url == $cwProduct['product_url']) {
                             $this->_logger->debug('Data is the same');
                         } else {
                             // Update URL and Name
@@ -118,14 +120,16 @@ class Index extends \Magento\Backend\App\AbstractAction
                         } else {
                             // Store product in local database
                             $model = $this->_cwproductFactory->create();
-                            $model->addData([
-                              "product_number" => $_sku,
-                              "app_name" => $_name,
-                              "product_url" => $_url
-                            ]);
+                            $model->addData(
+                                [
+                                "product_number" => $_sku,
+                                "app_name" => $_name,
+                                "product_url" => $_url
+                                ]
+                            );
                             $model->save();
                             // Upload Thumbnail
-                            if($appThumbnail){
+                            if ($appThumbnail) {
                                 $thumbnailPwd = $thumbnailDir . $appThumbnail;
                                 $resultThumbnail = json_decode($this->cwUploadThumbnail($_sku, $thumbnailPwd), true);
                                 if (array_key_exists('error', $resultThumbnail)) {
@@ -135,7 +139,7 @@ class Index extends \Magento\Backend\App\AbstractAction
 
                             // Upload iOS files
                             $this->_logger->debug('iosFile: ' . $iosFile);
-                            if($iosFile){
+                            if ($iosFile) {
                                 $iosPwd = $fileDir . $iosFile;
                                 $resultIos = json_decode($this->cwUploadIosFile($_sku, $iosPwd), true);
                                 if (array_key_exists('error', $resultIos)) {
@@ -145,7 +149,7 @@ class Index extends \Magento\Backend\App\AbstractAction
 
                             // Upload ANdroid files
                             $this->_logger->debug('androidFile: ' . $androidFile);
-                            if($androidFile){
+                            if ($androidFile) {
                                 $androidPwd = $fileDir . $androidFile;
                                 $resultAndroid = json_decode($this->cwUploadAndroidFile($_sku, $androidPwd), true);
                                 if (array_key_exists('error', $resultAndroid)) {
@@ -171,26 +175,31 @@ class Index extends \Magento\Backend\App\AbstractAction
     }
 
 
-    public function getComponentDetails($_sku) {
+    public function getComponentDetails($_sku)
+    {
         try {
-          	$url = "https://manage.configwise.io/configwise/api/components/".$_sku."/?include_360=true";
+            $url = "https://manage.configwise.io/configwise/api/components/".$_sku."/?include_360=true";
             $apiToken = $this->_scopeConfig->getValue('configwise/general/api_token', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
-          	$ch = curl_init();
-          	curl_setopt($ch, CURLOPT_URL, $url);
-          	curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt(
+                $ch,
+                CURLOPT_HTTPHEADER,
+                [
                              'x-token:' . $apiToken,
-                             'Accept: application/json'));
+                'Accept: application/json']
+            );
 
-          	curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-          	$responseData = curl_exec($ch);
-          	if(curl_errno($ch)) {
-              $this->_logger->debug('curl_error: ' . curl_error($ch));
-          		return curl_error($ch);
-          	}
-          	curl_close($ch);
+            $responseData = curl_exec($ch);
+            if (curl_errno($ch)) {
+                $this->_logger->debug('curl_error: ' . curl_error($ch));
+                return curl_error($ch);
+            }
+            curl_close($ch);
 
         } catch (\Exception $e) {
             $this->_logger->critical($e->getMessage());
@@ -202,7 +211,8 @@ class Index extends \Magento\Backend\App\AbstractAction
         return $responseData;
     }
 
-    public function cwCreateProduct($_sku, $_name, $_description, $_url) {
+    public function cwCreateProduct($_sku, $_name, $_description, $_url)
+    {
         try {
             $url = "https://manage.configwise.io/configwise/api/components";
             $apiToken = $this->_scopeConfig->getValue('configwise/general/api_token', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
@@ -220,11 +230,15 @@ class Index extends \Magento\Backend\App\AbstractAction
             $this->_logger->debug('--------------------------------');
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            curl_setopt(
+                $ch,
+                CURLOPT_HTTPHEADER,
+                [
                              'x-token:' . $apiToken,
                              'Content-Type: application/json',
                              'Accept: application/json',
-                             'Content-Length: ' . strlen($cwproductJSON)));
+                'Content-Length: ' . strlen($cwproductJSON)]
+            );
 
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $cwproductJSON);
@@ -232,9 +246,9 @@ class Index extends \Magento\Backend\App\AbstractAction
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             $responseData = curl_exec($ch);
-            if(curl_errno($ch)) {
-              $this->_logger->debug('curl_error: ' . curl_error($ch));
-              return curl_error($ch);
+            if (curl_errno($ch)) {
+                $this->_logger->debug('curl_error: ' . curl_error($ch));
+                return curl_error($ch);
             }
             curl_close($ch);
 
@@ -249,7 +263,8 @@ class Index extends \Magento\Backend\App\AbstractAction
     }
 
 
-    public function cwUpdateProduct($_sku, $_name, $_description, $_url) {
+    public function cwUpdateProduct($_sku, $_name, $_description, $_url)
+    {
         try {
             $this->_logger->debug('----------------- Update CW 1--------------');
             $url = "https://manage.configwise.io/configwise/api/components/".$_sku;
@@ -264,11 +279,15 @@ class Index extends \Magento\Backend\App\AbstractAction
             $cwproductJSON = json_encode($cwproduct);
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            curl_setopt(
+                $ch,
+                CURLOPT_HTTPHEADER,
+                [
                              'x-token:' . $apiToken,
                              'Content-Type: application/json',
                              'Accept: application/json',
-                             'Content-Length: ' . strlen($cwproductJSON)));
+                'Content-Length: ' . strlen($cwproductJSON)]
+            );
 
             curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "PUT");
             curl_setopt($ch, CURLOPT_POSTFIELDS, $cwproductJSON);
@@ -276,9 +295,9 @@ class Index extends \Magento\Backend\App\AbstractAction
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             $responseData = curl_exec($ch);
-            if(curl_errno($ch)) {
-              $this->_logger->debug('curl_error: ' . curl_error($ch));
-              return curl_error($ch);
+            if (curl_errno($ch)) {
+                $this->_logger->debug('curl_error: ' . curl_error($ch));
+                return curl_error($ch);
             }
             curl_close($ch);
 
@@ -293,32 +312,37 @@ class Index extends \Magento\Backend\App\AbstractAction
         return $responseData;
     }
 
-    public function cwUploadThumbnail($productNumber, $thumbnailPwd) {
+    public function cwUploadThumbnail($productNumber, $thumbnailPwd)
+    {
         try {
             $url = "https://manage.configwise.io/configwise/api/components/" . $productNumber . "/thumbnail";
             $apiToken = $this->_scopeConfig->getValue('configwise/general/api_token', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
             if (function_exists('curl_file_create')) { // php 5.5+
-              $cFile = curl_file_create($thumbnailPwd);
+                $cFile = curl_file_create($thumbnailPwd);
             } else {
-              $cFile = '@' . realpath($thumbnailPwd);
+                $cFile = '@' . realpath($thumbnailPwd);
             }
             $post = ['file' => $cFile];
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            curl_setopt(
+                $ch,
+                CURLOPT_HTTPHEADER,
+                [
                              'x-token:' . $apiToken,
-                             'Accept: application/json'));
+                'Accept: application/json']
+            );
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             $responseData = curl_exec($ch);
-            if(curl_errno($ch)) {
-              $this->_logger->debug('curl_error: ' . curl_error($ch));
-              return curl_error($ch);
+            if (curl_errno($ch)) {
+                $this->_logger->debug('curl_error: ' . curl_error($ch));
+                return curl_error($ch);
             }
             curl_close($ch);
         } catch (\Exception $e) {
@@ -331,25 +355,30 @@ class Index extends \Magento\Backend\App\AbstractAction
         return $responseData;
     }
 
-    public function cwUploadIosFile($productNumber, $iosFilePwd) {
+    public function cwUploadIosFile($productNumber, $iosFilePwd)
+    {
         try {
             $this->_logger->debug('4444--------------------');
             $url = "https://manage.configwise.io/configwise/api/components/" . $productNumber . "/ios";
             $apiToken = $this->_scopeConfig->getValue('configwise/general/api_token', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
             if (function_exists('curl_file_create')) { // php 5.5+
-              $cFile = curl_file_create($iosFilePwd);
+                $cFile = curl_file_create($iosFilePwd);
             } else {
-              $cFile = '@' . realpath($iosFilePwd);
+                $cFile = '@' . realpath($iosFilePwd);
             }
             $post = ['files[]' => $cFile];
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            curl_setopt(
+                $ch,
+                CURLOPT_HTTPHEADER,
+                [
                              'x-token:' . $apiToken,
                              'Accept: application/json',
-                            'Content-Type: multipart/form-data'));
+                'Content-Type: multipart/form-data']
+            );
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -357,9 +386,9 @@ class Index extends \Magento\Backend\App\AbstractAction
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             $responseData = curl_exec($ch);
             $this->_logger->debug('5555--------------------');
-            if(curl_errno($ch)) {
-              $this->_logger->debug('curl_error: ' . curl_error($ch));
-              return curl_error($ch);
+            if (curl_errno($ch)) {
+                $this->_logger->debug('curl_error: ' . curl_error($ch));
+                return curl_error($ch);
             }
             curl_close($ch);
         } catch (\Exception $e) {
@@ -373,33 +402,38 @@ class Index extends \Magento\Backend\App\AbstractAction
         return $responseData;
     }
 
-    public function cwUploadAndroidFile($productNumber, $androidFilePwd) {
+    public function cwUploadAndroidFile($productNumber, $androidFilePwd)
+    {
         try {
             $url = "https://manage.configwise.io/configwise/api/components/" . $productNumber . "/android";
             $apiToken = $this->_scopeConfig->getValue('configwise/general/api_token', \Magento\Store\Model\ScopeInterface::SCOPE_STORE);
 
             if (function_exists('curl_file_create')) { // php 5.5+
-              $cFile = curl_file_create($androidFilePwd);
+                $cFile = curl_file_create($androidFilePwd);
             } else {
-              $cFile = '@' . realpath($androidFilePwd);
+                $cFile = '@' . realpath($androidFilePwd);
             }
             $post = ['files[]' => $cFile];
 
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+            curl_setopt(
+                $ch,
+                CURLOPT_HTTPHEADER,
+                [
                              'x-token:' . $apiToken,
                              'Accept: application/json',
-                             'Content-Type: multipart/form-data'));
+                'Content-Type: multipart/form-data']
+            );
             curl_setopt($ch, CURLOPT_POST, 1);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             $responseData = curl_exec($ch);
-            if(curl_errno($ch)) {
-              $this->_logger->debug('curl_error: ' . curl_error($ch));
-              return curl_error($ch);
+            if (curl_errno($ch)) {
+                $this->_logger->debug('curl_error: ' . curl_error($ch));
+                return curl_error($ch);
             }
             curl_close($ch);
         } catch (\Exception $e) {
@@ -417,6 +451,4 @@ class Index extends \Magento\Backend\App\AbstractAction
     {
         return $this->_storeManager->getStore($storeId)->getBaseUrl();
     }
-
-
 }

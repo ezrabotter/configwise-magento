@@ -13,7 +13,7 @@ class Android extends AbstractModifier
     protected $arrayManager;
 
     /**
-     * @param ArrayManager                $arrayManager
+     * @param ArrayManager $arrayManager
      */
     public function __construct(
         ArrayManager $arrayManager

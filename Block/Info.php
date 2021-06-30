@@ -1,16 +1,19 @@
 <?php
 namespace ConfigWise\Configurator\Block;
 
-class Info extends \Magento\Config\Block\System\Config\Form\Field {
+class Info extends \Magento\Config\Block\System\Config\Form\Field
+{
 
 
     public function __construct(
-    \Magento\Backend\Block\Template\Context $context, array $data = []
+        \Magento\Backend\Block\Template\Context $context,
+        array $data = []
     ) {
         parent::__construct($context, $data);
     }
 
-    protected function _getElementHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element) {
+    protected function _getElementHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element)
+    {
         $html = '<p>For mor information please go to our <b>documentation site</b>: <a target="_blank" href="https://docs.configwise.io/">docs.configwise.io</a></p>';
 
         $html .='<br/>';
@@ -42,5 +45,4 @@ class Info extends \Magento\Config\Block\System\Config\Form\Field {
         ';
         return $html;
     }
-
 }

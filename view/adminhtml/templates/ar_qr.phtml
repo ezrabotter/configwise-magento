@@ -14,7 +14,6 @@ $isMobile = \Zend_Http_UserAgent_Mobile::match($userAgent, $_SERVER);
 $_cwEnabled                   = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/general/enable');
 $_arButtonEnabled             = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/ar_qr/enable_ar');
 $_qrEnabled                   = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/ar_qr/enable_qr');
-$_enable_on_pdp_desktop       = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/desktop_config/enable_on_pdp');
 $_deepLinkURL                 = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/ar_qr/deeplinkurl');
 $_arButtonText                = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/ar_qr/text');
 $_dynamicText                 = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/ar_qr/dynamic_text');
@@ -32,7 +31,6 @@ $_configurableBgColor         = $this->helper('ConfigWise\Configurator\Helper\Da
 $_mobileButtonText            = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/mobile_config/mobile_button_text');
 $_mobileInstructionText       = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/mobile_config/mobile_instruction');
 $_mobileImage                 = $this->helper('ConfigWise\Configurator\Helper\Data')->getConfig('configwise/mobile_config/mobile_image');
-
 
 $_url = '';
 $_baseUrl = '';
@@ -63,11 +61,10 @@ if ($_arDeeplinkUrl == 1) { // SKU Link
 if ($_referenceNumber) {
     $_productNumber = $_productNumber . '-' . $_referenceNumber;
 }
-
 if ($_cwEnabled && $_arButtonEnabled && $_arButtonForThisProductEnabled && $_url) {
     if ($isMobile) { ?>
 
-    <h3><a href="javascript:void(0)" id="pdp-chart" class="btn action primary"><?php echo $_mobileButtonText; ?></a> </h3>      
+    <h3><a href="javascript:void(0)" id="pdp-chart"><?php echo $_mobileButtonText; ?></a> </h3>      
     <div id="mobile-popup-config" class="mobile-popup-config" style="display:none;">
       <div class="mobile-popup-config-image">
          <img src="<?php echo $_mediaDirectory.$_mobileImage;?>" alt="no-image">
@@ -86,64 +83,62 @@ if ($_cwEnabled && $_arButtonEnabled && $_arButtonForThisProductEnabled && $_url
 if ($_cwEnabled && $_qrEnabled && $_qrForThisProductEnabled && $_url) {
     if ($isMobile) {
     } else { // Desktop
-        if ($_enable_on_pdp_desktop) {
-            ?>       
-          <div id="ar-qr-h2c-gen" class="product-huis-section">
-           <div class="product-huis-section-wrap">
-            <?php if (isset($_desktopImage)): ?>
-              <div class="section-top-image">
-                <img src="<?php echo $_mediaDirectory.$_desktopImage;?>" alt="no-image">
-              </div>
-            <?php endif; ?>
-            <div class="section-dec" style="background-color: <?php echo $_configurableBgColor; ?>">
-             <?php if (isset($_dynamicText)): ?>
-              <h3><?php echo $_dynamicText;?></a></h3>
-            <?php endif; ?> 
-            <div class="section-dec-qr-wrap">              
-              <?php if ($_displayQRCode == 1): ?>
-                <div class="section-dec-qr-code">
-                  <img src="<?php echo $this->getQr($_url, $_productNumber);?>" title="AR"/>
-                </div>
-                    <?php
-                    $instance = \Magento\Framework\App\ObjectManager::getInstance();
-                    $product_id = $_product->getId();
-                    $productimages = [];
-                    $product = $instance ->create('Magento\Catalog\Model\Product')->load($product_id);
-                    $productimages = $product->getMediaGalleryImages();
-                    foreach ($productimages as $productimage) {
-                        echo "<img src = ".$productimage['url']. " height=100 width=100  class='pdp-thumb-img'/>";
-                    }
-
-                    ?>
-              <?php endif; ?>               
-              <div class="section-dec-qr-dec">
-                <?php if (isset($_configurableTitle)): ?>
-                  <h6 style="color: <?php echo $_configurableTitleColor; ?>">
-                    <?php echo $_configurableTitle; ?></h6>
-                <?php endif; ?> 
-                <?php if (isset($_instructionText)): ?>
-                  <p><?php echo $_instructionText; ?></p>
-                <?php endif; ?> 
-                <?php if (isset($_captionText)): ?>
-                  <p><?php echo $_captionText; ?></p>
-                <?php endif; ?> 
-              </div>              
+        ?>       
+        <div id="ar-qr-h2c-gen" class="product-huis-section">
+         <div class="product-huis-section-wrap">
+          <?php if (isset($_desktopImage)): ?>
+            <div class="section-top-image">
+              <img src="<?php echo $_mediaDirectory.$_desktopImage;?>" alt="no-image">
             </div>
-            <div class="section-footer">
-              <div class="section-footer-wrap">
-                <?php if (isset($_desktopFooterImageOne)): ?>
-                  <img src="<?php echo $_mediaDirectory.$_desktopFooterImageOne; ?>">
-                <?php endif; ?> 
-                <?php if (isset($_desktopFooterImageSecond)): ?>
-                  <img src="<?php echo $_mediaDirectory.$_desktopFooterImageSecond; ?>">
-                <?php endif; ?> 
+          <?php endif; ?>
+          <div class="section-dec" style="background-color: <?php echo '#'.$_configurableBgColor; ?>">
+           <?php if (isset($_dynamicText)): ?>
+            <h3><?php echo $_dynamicText;?></a></h3>
+          <?php endif; ?> 
+          <div class="section-dec-qr-wrap">              
+            <?php if ($_displayQRCode == 1): ?>
+              <div class="section-dec-qr-code">
+                <img src="<?php echo $this->getQr($_url, $_productNumber);?>" title="AR"/>
               </div>
+                <?php
+                $instance = \Magento\Framework\App\ObjectManager::getInstance();
+                $product_id = $_product->getId();
+                $productimages = [];
+                $product = $instance ->create('Magento\Catalog\Model\Product')->load($product_id);
+                $productimages = $product->getMediaGalleryImages();
+                foreach ($productimages as $productimage) {
+                    echo "<img src = ".$productimage['url']. " height=100 width=100  class='pdp-thumb-img'/>";
+                }
+
+                ?>
+            <?php endif; ?>               
+            <div class="section-dec-qr-dec">
+              <?php if (isset($_configurableTitle)): ?>
+                <h6 style="color: <?php echo '#'.$_configurableTitleColor; ?>">
+                    <?php echo $_configurableTitle; ?></h6>
+              <?php endif; ?> 
+              <?php if (isset($_instructionText)): ?>
+                <p><?php echo $_instructionText; ?></p>
+              <?php endif; ?> 
+              <?php if (isset($_captionText)): ?>
+                <p><?php echo $_captionText; ?></p>
+              <?php endif; ?> 
+            </div>              
+          </div>
+          <div class="section-footer">
+            <div class="section-footer-wrap">
+              <?php if (isset($_desktopFooterImageOne)): ?>
+                <img src="<?php echo $_mediaDirectory.$_desktopFooterImageOne; ?>">
+              <?php endif; ?> 
+              <?php if (isset($_desktopFooterImageSecond)): ?>
+                <img src="<?php echo $_mediaDirectory.$_desktopFooterImageSecond; ?>">
+              <?php endif; ?> 
             </div>
           </div>
         </div>
-      </div>        
-            <?php
-        }
+      </div>
+    </div>        
+        <?php
     }
 }
 ?>
@@ -195,9 +190,16 @@ require(
     require(['jquery', 'html2canvas'], function($){
           html2canvas([document.getElementById('ar-qr-h2c-gen')], {
               onrendered: function(canvas) {
-                 document.body.appendChild(canvas);
-                 var data = canvas.toDataURL('image/png');
-                 // AJAX call to send `data` to a PHP file that creates an image from the dataURI string and saves it to a directory on the server
+                 var imgdata = canvas.toDataURL('image/png');
+                  $.ajax({
+                      type: "POST",
+                      url: "<?php echo $this->getBaseUrl() ?>configwise/index/save",
+                      data: {imgdata:imgdata,id:"<?php echo $_product->getId() ?>"},
+                      success : function(data)
+                      {
+                        window.location.href = data.redirect_url;
+                      }
+                  })
               }
           });
     });

@@ -8,7 +8,7 @@ use Endroid\QrCode\LabelAlignment;
 use Endroid\QrCode\QrCode;
 use Endroid\QrCode\Response\QrCodeResponse;
 
-class Tsview extends \Magento\Catalog\Block\Product\View
+class QRImage extends \Magento\Framework\View\Element\Template
 {
     protected $_cwframeFactory;
     protected $httpHeader;
@@ -17,18 +17,12 @@ class Tsview extends \Magento\Catalog\Block\Product\View
     protected $_fileSystem;
     protected $_io;
     protected $_fileDriver;
+    private $productRepository;
+    protected $request;
 
     public function __construct(
-        \Magento\Catalog\Block\Product\Context $context,
-        \Magento\Framework\Url\EncoderInterface $urlEncoder,
-        \Magento\Framework\Json\EncoderInterface $jsonEncoder,
-        \Magento\Framework\Stdlib\StringUtils $string,
-        \Magento\Catalog\Helper\Product $productHelper,
-        \Magento\Catalog\Model\ProductTypes\ConfigInterface $productTypeConfig,
-        \Magento\Framework\Locale\FormatInterface $localeFormat,
-        \Magento\Customer\Model\Session $customerSession,
+        \Magento\Framework\View\Element\Template\Context $context,
         ProductRepositoryInterface $productRepository,
-        \Magento\Framework\Pricing\PriceCurrencyInterface $priceCurrency,
         CwframeFactory $cwframeFactory,
         \Magento\Framework\HTTP\Header $httpHeader,
         \Magento\Framework\Filesystem\DirectoryList $dir,
@@ -40,17 +34,9 @@ class Tsview extends \Magento\Catalog\Block\Product\View
     ) {
         parent::__construct(
             $context,
-            $urlEncoder,
-            $jsonEncoder,
-            $string,
-            $productHelper,
-            $productTypeConfig,
-            $localeFormat,
-            $customerSession,
-            $productRepository,
-            $priceCurrency,
             $data
         );
+        $this->productRepository = $productRepository;
         $this->_cwframeFactory = $cwframeFactory;
         $this->httpHeader = $httpHeader;
         $this->_dir = $dir;
@@ -58,8 +44,15 @@ class Tsview extends \Magento\Catalog\Block\Product\View
         $this->fileSystem = $fileSystem;
         $this->_io = $io;
         $this->_fileDriver = $fileDriver;
+        $this->request = $context->getRequest();
     }
 
+    public function getProduct()
+    {
+        $productId = $this->request->getParam('id');
+        $_product = $this->productRepository->getById($productId);
+        return $_product;
+    }
     public function getFrame()
     {
         $collection = $this->_cwframeFactory->create()->getCollection();

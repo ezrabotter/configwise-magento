@@ -30,8 +30,8 @@ class File extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend
     /**
      * Construct
      *
-     * @param \Psr\Log\LoggerInterface $logger
-     * @param \Magento\Framework\Filesystem $filesystem
+     * @param \Psr\Log\LoggerInterface                         $logger
+     * @param \Magento\Framework\Filesystem                    $filesystem
      * @param \Magento\MediaStorage\Model\File\UploaderFactory $fileUploaderFactory
      */
     public function __construct(
@@ -58,24 +58,28 @@ class File extends \Magento\Eav\Model\Entity\Attribute\Backend\AbstractBackend
         if ($delete) {
             $object->setData($this->getAttribute()->getName(), '');
             $this->getAttribute()->getEntity()->saveAttribute($object, $this->getAttribute()->getName());
-            if ($this->_file->isExists($path.$fileName))  {
+            if ($this->_file->isExists($path.$fileName)) {
                 $this->_file->deleteFile($path.$fileName);
             }
         }
 
         try {
-            /** @var $uploader \Magento\MediaStorage\Model\File\Uploader */
+            /**
+*
+             *
+ * @var $uploader \Magento\MediaStorage\Model\File\Uploader
+*/
             $uploader = $this->_fileUploaderFactory->create(['fileId' => 'product['.$this->getAttribute()->getName().']']);
             $this->_logger->critical('------------------------------------------------');
             $this->_logger->critical('attribute code: '.$this->getAttribute()->getCode());
             $this->_logger->critical('attribute code: '.$this->getAttribute()->getAttributeCode());
             $this->_logger->critical('attribute code: '.$this->getAttribute()->getName());
-            if($this->getAttribute()->getName() == "ios_file"){
-              $uploader->setAllowedExtensions(['scn', 'usd', 'usdz', 'SCN', 'USD', 'USDZ']);
-            }elseif($this->getAttribute()->getName() == "android_file"){
-              $uploader->setAllowedExtensions(['glb','gltf', 'GLB','GLTF']);
-            }else{
-              $uploader->setAllowedExtensions(['png']);
+            if ($this->getAttribute()->getName() == "ios_file") {
+                $uploader->setAllowedExtensions(['scn', 'usd', 'usdz', 'SCN', 'USD', 'USDZ']);
+            } elseif ($this->getAttribute()->getName() == "android_file") {
+                $uploader->setAllowedExtensions(['glb','gltf', 'GLB','GLTF']);
+            } else {
+                $uploader->setAllowedExtensions(['png']);
             }
             $uploader->setAllowRenameFiles(true);
             $result = $uploader->save($path);

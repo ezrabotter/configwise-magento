@@ -6,6 +6,9 @@ xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Store:etc/config.xsd">
             <ar_qr>
                 <deeplinkurl>https://arproduct.app.link/AR</deeplinkurl>
             </ar_qr>
+            <desktop_config>
+            	<enable_on_pdp>0</enable_on_pdp>
+            </desktop_config>
         </configwise>
     </default>
 </config>
