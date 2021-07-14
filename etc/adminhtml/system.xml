@@ -6,26 +6,26 @@
             <label>ConfigWise</label>
             <tab>catalog</tab>
             <resource>ConfigWise_Configurator::wise_config</resource>
-            <group id="info" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="info" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Info</label>
-                <field id="test" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="test" translate="label" type="text" sortOrder="1" showInDefault="1" showInWebsite="1" showInStore="1">
                     <frontend_model>ConfigWise\Configurator\Block\Info</frontend_model>
                 </field>
             </group>
-            <group id="general" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="general" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General Configuration</label>
-                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="api_token" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="api_token" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>API token</label>
                     <depends>
                         <field id="enable">1</field>
                     </depends>
                 </field>
                 <field id="storeview" translate="label" type="select"
-                    sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+                    sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Store View</label>
                     <source_model>ConfigWise\Configurator\Model\Config\Source\Stores</source_model>
                     <depends>
@@ -33,13 +33,13 @@
                     </depends>
                 </field>
             </group>
-            <group id="ar_qr" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="ar_qr" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>AR / QR</label>
-                <field id="enable_ar" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="enable_ar" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable AR</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="enable_qr" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="enable_qr" translate="label" type="select" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable QR</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
@@ -49,27 +49,27 @@
                 <field id="dynamic_text" translate="label" type="text" sortOrder="35" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>QR Code Caption</label>
                 </field>
-                <field id="deeplinkurl" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="deeplinkurl" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>AR Base Deep Link URL</label>
                     <comment>Example: https://configwise-ipd.app.link/AR</comment>
                 </field>
-                <field id="journey_base_url" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="journey_base_url" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Journey Base URL</label>
                 </field>
                 <field id="ref_num" translate="label" type="text" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Reference Number</label>
                 </field>
             </group>
-            <group id="360widget" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="360widget" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>360 Widget</label>
-                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="enable" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
             </group>
-            <group id="desktop_config" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="desktop_config" translate="label" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Desktop Configuration</label>
-                <field id="enable_on_pdp" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">
+                <field id="enable_on_pdp" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Show on Product page</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
@@ -77,17 +77,17 @@
                     <label>Configurable Image</label>
                     <backend_model>ConfigWise\Configurator\Model\Config\Backend\Image</backend_model>
                     <base_url type="media" scope_info="1">configwise_image</base_url>
-                </field> 
+                </field>
                 <field id="configurable_title" translate="label" type="text" sortOrder="80" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Configurable Title</label>
                 </field>
                 <field id="title_color" translate="label" type="text" sortOrder="85" showInDefault="1" showInWebsite="1" showInStore="1">
-                   <label>Text Color</label>                   
-                   <frontend_model>ConfigWise\Configurator\Block\Color</frontend_model> 
+                   <label>Text Color</label>
+                   <frontend_model>ConfigWise\Configurator\Block\Color</frontend_model>
                </field>
                 <field id="background_color" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
-                   <label>Background Color</label>                   
-                   <frontend_model>ConfigWise\Configurator\Block\Color</frontend_model> 
+                   <label>Background Color</label>
+                   <frontend_model>ConfigWise\Configurator\Block\Color</frontend_model>
                </field>
                 <field id="generated_qr_code" translate="label" type="select" sortOrder="95" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Generated QR Code</label>
@@ -98,25 +98,25 @@
                 </field>
                 <field id="caption_text" translate="label" type="text" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Caption Instruction</label>
-                </field>  
+                </field>
                 <field id="configurable_first_image" translate="label" type="image" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>First Configurable Image</label>
                     <backend_model>ConfigWise\Configurator\Model\Config\Backend\Image</backend_model>
                     <base_url type="media" scope_info="1">configwise_image</base_url>
-                </field> 
+                </field>
                 <field id="configurable_second_image" translate="label" type="image" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Second Configurable Image</label>
                     <backend_model>ConfigWise\Configurator\Model\Config\Backend\Image</backend_model>
                     <base_url type="media" scope_info="1">configwise_image</base_url>
-                </field>                                                     
+                </field>
             </group>
-            <group id="mobile_config" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="0" showInStore="0">
+            <group id="mobile_config" translate="label" type="text" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Mobile Configuration</label>
                 <field id="mobile_image" translate="label" type="image" sortOrder="140" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Configurable Mobile Image</label>
                     <backend_model>ConfigWise\Configurator\Model\Config\Backend\Image</backend_model>
                     <base_url type="media" scope_info="1">configwise_image</base_url>
-                </field> 
+                </field>
                 <field id="mobile_instruction" translate="label" type="text" sortOrder="150" showInDefault="1" showInWebsite="1" showInStore="1">
                     <label>Mobile Instruction</label>
                 </field>
